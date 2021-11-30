@@ -1,0 +1,52 @@
+int sensor = 0;
+int temp = 0;
+
+void setup()
+{
+  pinMode(7, OUTPUT);
+  pinMode(A0, INPUT);
+  pinMode(2, INPUT);
+  Serial.begin(9600);
+
+}
+void loop()
+{
+
+  if (digitalRead(2) == 1) {
+
+
+    sensor = analogRead(A0);
+    temp = map(analogRead(A0), 20, 358, -40, 125);
+
+    Serial.println(temp);
+
+    if (temp > 25)
+    {
+      digitalWrite(7, HIGH);
+      Serial.print ("Temperatura :");
+      Serial.println (temp);
+      Serial.println ("Ventilador ligado!");
+      delay(10000);
+
+
+    }
+    if (temp < 25) {
+      digitalWrite(7, LOW);
+      Serial.print ("Temperatura :");
+      Serial.println (temp);
+      Serial.println ("Ventilador desligado!");
+      delay(10000);
+
+    }
+
+  }
+  else
+  {
+
+    digitalWrite(7, LOW);
+    Serial.println("Sistema desligado!");
+    delay(3000);
+
+  }
+
+}
